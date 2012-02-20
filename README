@@ -1,0 +1,36 @@
+Intro:
+
+This is a small script that deals with NMR chemical shift analysis
+for gross structure comparison in proteins. The shifts determined experimentally
+are compared to the shifts from the references, if it above the listed range the 
+amino acid corresponding receives a 1, if it within the range, it recieves a 0,
+if it is below, it recieves a -1. 
+
+If there is a pattern of 1's or -1's for more than 4 sequential amino acids, this may
+indicate some secondary structure. Agreement between multiple atoms should
+correlate if this is accurate.
+
+
+See the 1994 Wishart paper for background:
+
+	Title:The 13C Chemical-Shift Index: A simple method for the
+	identification of protein secondary structure using 13C chemical-shift data*          
+	Authors: DavidS.Wishart and BrianD.Sykes**
+	Pub: Journal of Biomolecular NMR, 4 (1994) 171-180
+
+
+Notes:
+	results directory:
+	Processed Data from Sparky format input.
+	
+	shifts-ref directory:
+	The references for the coiled shifts from the 1994 paper. These were
+	provided with the original program developed by Wishart, written in C.
+	
+	shifts.py: the above noted references in python dict format
+	
+	
+Example:
+	Using shifts from N-Terminal of Human Lys-RS in Sparky format
+
+
