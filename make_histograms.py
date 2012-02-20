@@ -20,7 +20,7 @@ def read_line_position(lines, pos):
 	histList = []
 	for line in lines:
 		splits = line.split(' ')
-		print splits[pos]
+		#print splits[pos]
 		# in case we have endline chars:
 		splits[pos] = splits[pos].replace('\n', '')
 		histList.append(float(splits[pos]))
@@ -32,7 +32,7 @@ def make_plot(histList, f1):
 	plt.hist(histList, facecolor='g')
 	plt.ylabel('Number of occurences')
 	plt.xlabel("Category for CSI, for file %s" % f1)
-	plt.axis([-1, 1, 0, len_list])
+	plt.axis([-2, 2, 0, len_list])
 	
 	neg1 = 0
 	for x in histList:
@@ -59,7 +59,7 @@ def make_plot(histList, f1):
 	
 	freq_neg1 = ((float(neg1) / float(len_list)) * 100.0)
 	freq_neg1 = "%3.2f percent" % freq_neg1
-	plt.text(0.75, (len_list * 0.9), freq_neg1)
+	plt.text(1, (len_list * 0.9), freq_neg1)
 	
 	plt.show()
 	
@@ -84,36 +84,38 @@ def get_diffs(list1, list2):
 def make_plot_diffs(histList, f1):
 	#nothing yet
 	len_list = len(histList)
-	plt.hist(histList, facecolor='g')
+	
+	# Notes on this:
+	### You will have to play with 'bin' arg to get good looking bars.
+	plt.hist(histList, facecolor='g', bins=50, normed=0)
 	plt.ylabel('Number of occurences')
 	plt.xlabel("Diff btwn Shifts, for file %s" % f1)
-	plt.axis([-5, 5, 0, len_list])
+	plt.axis([-5, 5, 0, len_list / 2])
 	plt.show()
 	
 	
-def load_graph(filename):
+def load_graph_1(filename):
 	lines = import_results(filename)
 	histList = read_line_position(lines, 2)
 	make_plot(histList, filename)
 	
+def load_graph_2(filename):
 	# load for diffs:
-	#lines = import_results(filename)
-	#histList1 = read_line_position(lines, 3)
-	#histList2 = read_line_position(lines, 4)
-	#histList3 = get_diffs(histList1, histList2)
-	#make_plot_diffs(histList3, filename)
-	
+	lines = import_results(filename)
+	histList1 = read_line_position(lines, 3)
+	histList2 = read_line_position(lines, 4)
+	histList3 = get_diffs(histList1, histList2)
+	make_plot_diffs(histList3, filename)
 	
 	
 	
 def main():
-	f1 = "results/ca.txt"
-	f2 = "results/cb.txt"
-	f3 = "results/co.txt"
+	file1 = "results/ca.txt"
+	file2 = "results/cb.txt"
+	file3 = "results/co.txt"
 
-	#load_graph(f1)
-	#load_graph(f2)
-	load_graph(f3)
+	#load_graph_1(f3)
+	load_graph_2(file1)
 	return 0
 
 
