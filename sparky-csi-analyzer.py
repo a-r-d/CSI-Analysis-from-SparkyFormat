@@ -23,6 +23,8 @@ import sys
 import re
 from shifts import *
 
+FILENAME = "rmn-shifts-singlespace-2-with-HA.csv"     #  "rmnshifts-singlespace.txt"
+
 #this will be a list of the atom types
 column_headings = []
 # c / C = colist
@@ -34,7 +36,7 @@ other_lines = [] #all else
 def read_input_file():
 	print "Enter a file name: "
 	#name = raw_input("> ")
-	name = "rmnshifts-singlespace.txt"
+	name = FILENAME
 	f = open(name, "r")	
 	return f
 	
@@ -84,11 +86,14 @@ def compare_single_index(filename,indexpos,indexlist):
 					lower = True # a flag
 				
 				#get CO
-				atom_shift = splitlist[indexpos]
-				if(atom_shift == '-'):
-					atom_shift = 0
-				atom_shift = float(atom_shift)
-				#print CO
+				try:
+					atom_shift = splitlist[indexpos]
+					if(atom_shift == '-'):
+						atom_shift = 0
+					atom_shift = float(atom_shift)
+					#print CO
+				except: 
+					print splitlist, "error"
 				
 				#use colist from shifts.py
 				for dict in indexlist:
@@ -102,11 +107,18 @@ def compare_single_index(filename,indexpos,indexlist):
 						else:
 							i += 1
 						#print "Shift", dict['shift'], "range:", dict['range']
-						if((dict['shift'] + dict['range']) <= atom_shift):
+						#how to avoid Floating Point errors here?
+						# atom shift is the experimental. So we add 0.001 the compared to avoid fp error.
+						if atom_shift <= 0.1 and atom_shift >= -.01:
+							fileobj.write("%d %s %d %3.3f %3.3f\n" % (i, aa_first_letter, 0, atom_shift, dict['shift']))
+							print i, aa_first_letter, "CO", 0,  "From (input, index):", atom_shift, dict['shift'], "Range:", dict['range']
+							continue # this is if we modded the result to zero
+						
+						if((dict['shift'] + dict['range'] + 0.001) <= atom_shift):
 							# -> 1
 							print i, aa_first_letter, "CO", 1, "From (input, index):", atom_shift, dict['shift'], "Range:", dict['range']
 							fileobj.write("%d %s %d %3.3f %3.3f\n" % (i, aa_first_letter, 1, atom_shift, dict['shift']))
-						elif(atom_shift <= (dict['shift'] - dict['range'])):
+						elif(atom_shift <= (dict['shift'] - dict['range'] - 0.001)):
 							# -> -1
 							fileobj.write("%d %s %d %3.3f %3.3f\n" % (i, aa_first_letter, -1, atom_shift, dict['shift']))
 							print i, aa_first_letter, "CO", -1, "From (input, index):", atom_shift, dict['shift'], "Range:", dict['range']
@@ -124,6 +136,7 @@ def make_files():
 	compare_single_index("results/co.txt",2,colist)
 	compare_single_index("results/ca.txt",3,calist)
 	compare_single_index("results/cb.txt",4,cblist)
+	compare_single_index("results/ha.txt",7,halist)
 					
 					
 	

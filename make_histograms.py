@@ -113,9 +113,10 @@ def main():
 	file1 = "results/ca.txt"
 	file2 = "results/cb.txt"
 	file3 = "results/co.txt"
+	file4 = "results/ha.txt"
 
-	#load_graph_1(f3)
-	load_graph_2(file1)
+	load_graph_1(file4)
+	#load_graph_2(file4)
 	return 0
 
 
