@@ -1,11 +1,12 @@
 ### Note from 2015
 
-This is a little program I wrote while I was still working for Dr. Tsang's biochemistry lab at Unnivrsity of Cincinnati.
+This is a little program I wrote while I was still working at Dr. Tsang's biochemistry lab on a summer fellowship at University of Cincinnati.
 I think they Sparky NMR analysis project is abandoned at this point but this script may still be useful for somebody but honestly 
 you could do the same thing with a spreadsheet program. 
 
 I am now a software engineer fulltime and not involved in Chemistry much any more and I have come a long way as programmer since I wrote this rudimentary script.
 
+As a side note [a paper did come out of this](http://www.ncbi.nlm.nih.gov/pubmed/23065336).
 
 
 ### Intro:
