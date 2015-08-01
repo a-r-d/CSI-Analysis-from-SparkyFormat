@@ -1,6 +1,16 @@
-Intro:
+### Note from 2015
 
-This is a small script that deals with NMR chemical shift analysis
+This is a little program I wrote while I was still working for Dr. Tsang's biochemistry lab at Unnivrsity of Cincinnati.
+I think they Sparky NMR analysis project is abandoned at this point but this script may still be useful for somebody but honestly 
+you could do the same thing with a spreadsheet program. 
+
+I am now a software engineer fulltime and not involved in Chemistry much any more and I have come a long way as programmer since I wrote this rudimentary script.
+
+
+
+### Intro:
+
+This is a small script that deals with NMR chemical shift analysis 
 for gross structure comparison in proteins. The shifts determined experimentally
 are compared to the shifts from the references, if it above the listed range the 
 amino acid corresponding receives a 1, if it within the range, it recieves a 0,
